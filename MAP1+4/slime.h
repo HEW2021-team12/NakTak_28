@@ -16,17 +16,17 @@
 // ステージ１
 #define SLIME_MAX		(1)
 
-//// ステージ２
-//#define SLIME_MAX		(1)
-//
-//// ステージ３
-//#define SLIME_MAX		(1)
-//
-//// ステージ４
-//#define SLIME_MAX		(1)
-//
-//// ステージ５
-//#define SLIME_MAX		(1)
+// ステージ２
+#define SLIME_MAX		(1)
+
+// ステージ３
+#define SLIME_MAX		(1)
+
+// ステージ４
+#define SLIME_MAX4		(1)
+
+// ステージ５
+#define SLIME_MAX		(1)
 
 
 // ステージ通して固定
@@ -39,6 +39,9 @@ struct SLIME
 	float					w, h;		 // 幅と高さ
 	D3DXVECTOR2				pos;		 // ポリゴンの座標
 	D3DXVECTOR2				vel;		 // 移動量
+	D3DXVECTOR2				notmove;	 // 動けていない時用
+	D3DXVECTOR2				addmove;	 // 動けていない時の追加移動
+	bool					movecntX, movecntY;
 	float					u;
 	float					v;
 	float					uh;
@@ -67,18 +70,10 @@ void DrawSlime(void);
 SLIME* GetSlime(void);
 BABBLE** GetBabble(void);
 
-//// ステージ４
-//HRESULT InitSlime(void);
-//void UninitSlime(void);
-//void UpdateSlime(void);
-//void DrawSlime(void);
-//SLIME* GetSlime(void);
-//BABBLE** GetBabble(void);
-//
-//// ステージ５
-//HRESULT InitSlime(void);
-//void UninitSlime(void);
-//void UpdateSlime(void);
-//void DrawSlime(void);
-//SLIME* GetSlime(void);
-//BABBLE** GetBabble(void);
+// ステージ４
+HRESULT InitSlime4(void);
+void UninitSlime4(void);
+void UpdateSlime4(void);
+void DrawSlime4(void);
+SLIME* GetSlime4(void);
+BABBLE** GetBabble4(void);

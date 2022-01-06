@@ -16,9 +16,6 @@
     <Filter Include="ソース ファイル\STAGE1">
       <UniqueIdentifier>{cd2871d6-4940-4806-807f-1ffc1f5ab6cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\STAGE2">
-      <UniqueIdentifier>{ce0234b1-9a5a-4c20-97f9-6b640a5823cc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\COMMON">
       <UniqueIdentifier>{58fdfdf4-86c1-4bd3-bd78-13f783e28750}</UniqueIdentifier>
     </Filter>
@@ -33,9 +30,6 @@
     </Filter>
     <Filter Include="ソース ファイル\STAGE4">
       <UniqueIdentifier>{c2c22a2b-70dc-416f-94b5-380ca75df334}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\STAGE5">
-      <UniqueIdentifier>{5d5c106a-8df8-43b6-82a7-8d7344f10e72}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="warp_1.cpp">
       <Filter>ソース ファイル\STAGE1</Filter>
+    </ClCompile>
+    <ClCompile Include="slime_4.cpp">
+      <Filter>ソース ファイル\STAGE4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

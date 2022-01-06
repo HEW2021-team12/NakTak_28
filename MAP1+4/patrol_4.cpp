@@ -45,45 +45,45 @@ const char g_Root_4[2][ROOT_MAX4_4] =
 };
 
 
-char SetRoute4X_1(char number)
+char SetRouteX4_1(char number)
 {
 	return g_Root_1[0][number];
 }
 
-char SetRoute4Y_1(char number)
+char SetRouteY4_1(char number)
 {
 	return g_Root_1[1][number];
 
 }
 
-char SetRoute4X_2(char number)
+char SetRouteX4_2(char number)
 {
 	return g_Root_2[0][number];
 }
 
-char SetRoute4Y_2(char number)
+char SetRouteY4_2(char number)
 {
 	return g_Root_2[1][number];
 
 }
 
-char SetRoute4X_3(char number)
+char SetRouteX4_3(char number)
 {
 	return g_Root_3[0][number];
 }
 
-char SetRoute4Y_3(char number)
+char SetRouteY4_3(char number)
 {
 	return g_Root_3[1][number];
 
 }
 
-char SetRoute4X_4(char number)
+char SetRouteX4_4(char number)
 {
 	return g_Root_4[0][number];
 }
 
-char SetRoute4Y_4(char number)
+char SetRouteY4_4(char number)
 {
 	return g_Root_4[1][number];
 

@@ -29,11 +29,11 @@ void DrawTransparent(void);
 ENEMY* GetTransparent(void);
 
 //// ステージ４
-//HRESULT InitTransparent(void);
-//void UninitTransparent(void);
-//void UpdateTransparent(void);
-//void DrawTransparent(void);
-//ENEMY* GetTransparent(void);
+//HRESULT InitTransparent4(void);
+//void UninitTransparent4(void);
+//void UpdateTransparent4(void);
+//void DrawTransparent4(void);
+//ENEMY* GetTransparent4(void);
 //
 //// ステージ５
 //HRESULT InitTransparent(void);

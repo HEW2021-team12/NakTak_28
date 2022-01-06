@@ -58,13 +58,7 @@ void ChangeUv   (void);
 
 int GetMapEnter(D3DXVECTOR2 pos);
 
-void InitMap2(void);
-void UninitMap2(void);
-void UpdateMap2(void);
-void DrawMap2(void);
-void ChangeUv2(void);
 
-int GetMapEnter2(D3DXVECTOR2 pos);
 
 void InitMap4(void);
 void UninitMap4(void);
@@ -74,13 +68,6 @@ void ChangeUv4(void);
 
 int GetMapEnter4(D3DXVECTOR2 pos);
 
-void InitMap5(void);
-void UninitMap5(void);
-void UpdateMap5(void);
-void DrawMap5(void);
-void ChangeUv5(void);
-
-int GetMapEnter5(D3DXVECTOR2 pos);
 
 
 //int GetMap(int x, int y);

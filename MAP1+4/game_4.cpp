@@ -50,7 +50,7 @@ void InitGame4(void)
 	InitPlayer();
 	InitEnemy4();
 	//InitTransparent4();
-	//InitSlime4();
+	InitSlime4();
 	//InitRazer4();
 	//InitWarp4();
 	InitMap4();
@@ -72,7 +72,7 @@ void UninitGame4()
 	UninitMap4();
 	UninitPlayer();
 	//UninitTransparent4();
-	//UninitSlime4();
+	UninitSlime4();
 	//UninitRazer4();
 	//UninitWarp4();
 	UninitEnemy4();
@@ -88,7 +88,7 @@ void UpdateGame4(void)
 	UpdateEnemy4();
 	UpdatePlayer();
 	//UpdateTransparent4();
-	//UpdateSlime4();
+	UpdateSlime4();
 	//UpdateRazer4();
 	//UpdateWarp4();
 
@@ -112,7 +112,7 @@ void DrawGame4(void)
 {
 	DrawMap4();
 	//DrawTransparent4();
-	//DrawSlime4();
+	DrawSlime4();
 	//DrawRazer4();
 	//DrawWarp4();
 	DrawPlayer();

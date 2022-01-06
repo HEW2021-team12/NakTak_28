@@ -180,16 +180,80 @@ void UpdateCollision(void)
 		}
 	}
 
-	// ステージ２
-	if (GetScene() == SCENE_GAME2)
+	// ステージ４
+	if (GetScene() == SCENE_GAME4)
 	{
-		enemy = GetEnemy2();	// エネミーのポインターを初期化
-		enemy_max = ENEMY_MAX2;
+		enemy = GetEnemy4();	// エネミーのポインターを初期化
+		enemy_max = ENEMY_MAX4;
 
-		// ステージ２判定まとめ
+		slime = GetSlime4();
+		slime_max = SLIME_MAX4;
+
+		babble = GetBabble4();
+		babble_max = BABBLE_MAX;
+
+		// ステージ４判定まとめ
 		{
-			// ここに１のようにまとめておくように
+			
+			// 敵と操作キャラ(BB)
+			for (int i = 0; i < enemy_max; i++)
+			{
+				if (enemy[i].use == false)
+					continue;
 
+				if (CollisionBC(player->pos, enemy[i].pos, player->size.y / 2, enemy[i].h / 2))
+				{
+					// 操作キャラクターは敗北
+					SceneTransition(SCENE_LOSE);
+				}
+			}
+
+
+			// プレイヤーとスライム
+			for (int i = 0; i < slime_max; i++)
+			{
+				if (slime[i].use)
+				{
+					if (CollisionBB(player->pos, slime[i].pos, player->size, D3DXVECTOR2(slime[i].w, slime[i].h)))
+					{
+						player->penalty = true;
+
+						// サウンド再生
+						if (!g_PenaltySlime)
+						{
+							PlaySound(g_Slime_SE, 0);
+							g_PenaltySlime = true;
+						}
+					}
+					else
+					{
+						g_PenaltySlime = false;
+					}
+				}
+
+				// プレイヤーとバブル
+				for (int j = 0; j < babble_max; j++)
+				{
+					if (babble[i][j].use)
+					{
+						if (CollisionBB(player->pos, babble[i][j].pos, player->size, D3DXVECTOR2(babble[i][j].w, babble[i][j].h)))
+						{
+							player->penalty = true;
+
+							// サウンド再生
+							if (!g_PenaltyBabble)
+							{
+								PlaySound(g_Slime_SE, 0);
+								g_PenaltyBabble = true;
+							}
+						}
+						else
+						{
+							g_PenaltyBabble = false;
+						}
+					}
+				}
+			}
 		}
 	}
 }

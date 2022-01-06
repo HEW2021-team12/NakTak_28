@@ -28,7 +28,7 @@
 #define ROOT_NUM4_1			(2)
 #define ROOT_NUM4_2			(0)
 #define ROOT_NUM4_3			(8)
-#define ROOT_NUM4_4			(5)
+#define ROOT_NUM4_4			(1)
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -37,7 +37,7 @@
 void SetEnemy4(int i);
 void WatchEnemy4(int i);
 void NoneWatchEnemy4(int i);
-bool SerchPlayer4(D3DXVECTOR2 Playerpos, D3DXVECTOR2 Enemypos);
+bool SerchPlayer4(D3DXVECTOR2 Playerpos, D3DXVECTOR2 Enemypos); 
 
 //*****************************************************************************
 // グローバル変数
@@ -46,21 +46,20 @@ unsigned char	g_EnemyTexture4 = 0;
 unsigned char	g_watch_SE4 = 0;
 unsigned char	g_watch_lost_SE4 = 0;
 
-
 // メモリ確保用アドレス
 ENEMY* g_Enemy4;				  // エネミー構造体
-char* g_Route4X_1;
-char* g_Route4Y_1;
 
-char* g_Route4X_2;
-char* g_Route4Y_2;
+char* g_RouteX4_1;		  // 巡回ルート用
+char* g_RouteY4_1;		  // 巡回ルート用
 
-char* g_Route4X_3;
-char* g_Route4Y_3;
+char* g_RouteX4_2;		  // 巡回ルート用
+char* g_RouteY4_2;		  // 巡回ルート用
 
-char* g_Route4X_4;
-char* g_Route4Y_4;
+char* g_RouteX4_3;		  // 巡回ルート用
+char* g_RouteY4_3;		  // 巡回ルート用
 
+char* g_RouteX4_4;		  // 巡回ルート用
+char* g_RouteY4_4;		  // 巡回ルート用
 
 //=============================================================================
 // 初期化処理
@@ -74,40 +73,39 @@ HRESULT InitEnemy4(void)
 	// メモリ確保
 	g_Enemy4 = new ENEMY[ENEMY_MAX4];
 
-	g_Route4X_1 = new char[ROOT_MAX4_1];
-	g_Route4Y_1 = new char[ROOT_MAX4_1];
+	g_RouteX4_1 = new char[ROOT_MAX4_1];
+	g_RouteY4_1 = new char[ROOT_MAX4_1];
 
-	g_Route4X_2 = new char[ROOT_MAX4_2];
-	g_Route4Y_2 = new char[ROOT_MAX4_2];
+	g_RouteX4_2 = new char[ROOT_MAX4_2];
+	g_RouteY4_2 = new char[ROOT_MAX4_2];
 
-	g_Route4X_3 = new char[ROOT_MAX4_3];
-	g_Route4Y_3 = new char[ROOT_MAX4_3];
+	g_RouteX4_3 = new char[ROOT_MAX4_3];
+	g_RouteY4_3 = new char[ROOT_MAX4_3];
 
-	g_Route4X_4 = new char[ROOT_MAX4_4];
-	g_Route4Y_4 = new char[ROOT_MAX4_4];
+	g_RouteX4_4 = new char[ROOT_MAX4_4];
+	g_RouteY4_4 = new char[ROOT_MAX4_4];
 
 	// 巡回ルート設定
 	for (char r = 0; r < ROOT_MAX4_1; r++)
 	{
-		g_Route4X_1[r] = SetRoute4X_1(r);
-		g_Route4Y_1[r] = SetRoute4Y_1(r);
+		g_RouteX4_1[r] = SetRouteX4_1(r);
+		g_RouteY4_1[r] = SetRouteY4_1(r);
 	}
 	for (char r = 0; r < ROOT_MAX4_2; r++)
 	{
-		g_Route4X_2[r] = SetRoute4X_2(r);
-		g_Route4Y_2[r] = SetRoute4Y_2(r);
+		g_RouteX4_2[r] = SetRouteX4_2(r);
+		g_RouteY4_2[r] = SetRouteY4_2(r);
 	}
 	for (char r = 0; r < ROOT_MAX4_3; r++)
 	{
-		g_Route4X_3[r] = SetRoute4X_3(r);
-		g_Route4Y_3[r] = SetRoute4Y_3(r);
+		g_RouteX4_3[r] = SetRouteX4_3(r);
+		g_RouteY4_3[r] = SetRouteY4_3(r);
 	}
 	for (char r = 0; r < ROOT_MAX4_4; r++)
 	{
-		g_Route4X_4[r] = SetRoute4X_4(r);
-		g_Route4Y_4[r] = SetRoute4Y_4(r);
+		g_RouteX4_4[r] = SetRouteX4_4(r);
+		g_RouteY4_4[r] = SetRouteY4_4(r);
 	}
-
 
 	// エネミー構造体の初期化
 	for (int i = 0; i < ENEMY_MAX4; i++)
@@ -118,8 +116,8 @@ HRESULT InitEnemy4(void)
 			g_Enemy4[i].use = true;
 			g_Enemy4[i].routenom = ROOT_NUM4_1;
 
-			g_Enemy4[i].pos.x = g_Route4X_1[ROOT_NUM4_1] * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = g_Route4Y_1[ROOT_NUM4_1] * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.x = g_RouteX4_1[ROOT_NUM4_1] * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = g_RouteY4_1[ROOT_NUM4_1] * CHIP_SIZE + (CHIP_SIZE / 2);
 		}
 		// 二体目
 		if (i == 1)
@@ -127,8 +125,8 @@ HRESULT InitEnemy4(void)
 			g_Enemy4[i].use = false;
 			g_Enemy4[i].routenom = ROOT_NUM4_2;
 
-			g_Enemy4[i].pos.x = g_Route4X_2[ROOT_NUM4_2] * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = g_Route4Y_2[ROOT_NUM4_2] * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.x = g_RouteX4_2[ROOT_NUM4_2] * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = g_RouteY4_2[ROOT_NUM4_2] * CHIP_SIZE + (CHIP_SIZE / 2);
 		}
 		// 三体目
 		if (i == 2)
@@ -136,8 +134,8 @@ HRESULT InitEnemy4(void)
 			g_Enemy4[i].use = false;
 			g_Enemy4[i].routenom = ROOT_NUM4_3;
 
-			g_Enemy4[i].pos.x = g_Route4X_3[ROOT_NUM4_3] * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = g_Route4Y_3[ROOT_NUM4_3] * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.x = g_RouteX4_3[ROOT_NUM4_3] * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = g_RouteY4_3[ROOT_NUM4_3] * CHIP_SIZE + (CHIP_SIZE / 2);
 		}
 		// 四体目
 		if (i == 3)
@@ -145,9 +143,10 @@ HRESULT InitEnemy4(void)
 			g_Enemy4[i].use = false;
 			g_Enemy4[i].routenom = ROOT_NUM4_4;
 
-			g_Enemy4[i].pos.x = g_Route4X_4[ROOT_NUM4_4] * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = g_Route4Y_4[ROOT_NUM4_4] * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.x = g_RouteX4_4[ROOT_NUM4_4] * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = g_RouteY4_4[ROOT_NUM4_4] * CHIP_SIZE + (CHIP_SIZE / 2);
 		}
+
 
 		// 共通
 		g_Enemy4[i].watch = false;
@@ -166,6 +165,9 @@ HRESULT InitEnemy4(void)
 		g_Enemy4[i].vh = 0.5f;
 	}
 
+
+
+
 	return S_OK;
 }
 
@@ -176,14 +178,16 @@ void UninitEnemy4(void)
 {
 	// メモリ解放
 	delete[] g_Enemy4;
-	delete[] g_Route4X_1;
-	delete[] g_Route4Y_1;
-	delete[] g_Route4X_2;
-	delete[] g_Route4Y_2;
-	delete[] g_Route4X_3;
-	delete[] g_Route4Y_3;
-	delete[] g_Route4X_4;
-	delete[] g_Route4Y_4;
+
+	delete[] g_RouteX4_1;
+	delete[] g_RouteY4_1;
+	delete[] g_RouteX4_2;
+	delete[] g_RouteY4_2;
+	delete[] g_RouteX4_3;
+	delete[] g_RouteY4_3;
+	delete[] g_RouteX4_4;
+	delete[] g_RouteY4_4;
+
 }
 
 //=============================================================================
@@ -211,25 +215,69 @@ void UpdateEnemy4(void)
 			// 見つけていない
 			else
 			{
-				if (g_Enemy4[i].watch)
+				if (i == 0)
 				{
-					// 見失った時の処理（SE）
-					PlaySound(g_watch_lost_SE4, 0);
+					if (g_Enemy4[i].watch)
+					{
+						// 見失った時の処理（SE）
+						PlaySound(g_watch_lost_SE4, 0);
 
-					char work = rand() % ROOT_MAX;
+						char work = rand() % ROOT_MAX4_1;
 
-					g_Enemy4[i].routenom = work;
-					g_Enemy4[i].pos.x = SetRoute4X_1(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-					g_Enemy4[i].pos.y = SetRoute4Y_1(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-					g_Enemy4[i].pos.x = SetRoute4X_2(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-					g_Enemy4[i].pos.y = SetRoute4Y_2(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-					g_Enemy4[i].pos.x = SetRoute4X_3(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-					g_Enemy4[i].pos.y = SetRoute4Y_3(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-					g_Enemy4[i].pos.x = SetRoute4X_4(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-					g_Enemy4[i].pos.y = SetRoute4Y_4(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+						g_Enemy4[i].routenom = work;
+						g_Enemy4[i].pos.x = SetRouteX4_1(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+						g_Enemy4[i].pos.y = SetRouteY4_1(work) * CHIP_SIZE + (CHIP_SIZE / 2);
 
+					}
 				}
 
+				if (i == 1)
+				{
+					if (g_Enemy4[i].watch)
+					{
+						// 見失った時の処理（SE）
+						PlaySound(g_watch_lost_SE4, 0);
+
+						char work = rand() % ROOT_MAX4_2;
+
+						g_Enemy4[i].routenom = work;
+						g_Enemy4[i].pos.x = SetRouteX4_2(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+						g_Enemy4[i].pos.y = SetRouteY4_2(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+
+					}
+				}
+
+				if (i == 2)
+				{
+					if (g_Enemy4[i].watch)
+					{
+						// 見失った時の処理（SE）
+						PlaySound(g_watch_lost_SE4, 0);
+
+						char work = rand() % ROOT_MAX4_3;
+
+						g_Enemy4[i].routenom = work;
+						g_Enemy4[i].pos.x = SetRouteX4_3(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+						g_Enemy4[i].pos.y = SetRouteY4_3(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+
+					}
+				}
+
+				if (i == 3)
+				{
+					if (g_Enemy4[i].watch)
+					{
+						// 見失った時の処理（SE）
+						PlaySound(g_watch_lost_SE4, 0);
+
+						char work = rand() % ROOT_MAX4_4;
+
+						g_Enemy4[i].routenom = work;
+						g_Enemy4[i].pos.x = SetRouteX4_4(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+						g_Enemy4[i].pos.y = SetRouteY4_4(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+
+					}
+				}
 				g_Enemy4[i].watch = false;
 
 				NoneWatchEnemy4(i);
@@ -250,8 +298,6 @@ void UpdateEnemy4(void)
 	{
 		SetEnemy4(3);
 	}
-
-
 }
 
 //=============================================================================
@@ -300,15 +346,15 @@ void DrawEnemy4(void)
 //=============================================================================
 void SetEnemy4(int i)
 {
-
 	// もし未使用のデータを探す
 	if (g_Enemy4[i].use == false)	// 未使用状態の敵データを見つける
 	{
 		g_Enemy4[i].use = true;		// 使用状態へ変更する
 
-									// 出現したときのSE
-			return;						// 敵をセットできたので終了する
-		}
+		// 出現したときのSE
+
+		return;						// 敵をセットできたので終了する
+	}
 }
 
 // 見つけたら
@@ -382,7 +428,7 @@ void WatchEnemy4(int i)
 
 		//移動後の位置を計算
 		g_Enemy4[i].pos.x += direction.x * FIND_SPD;
-		if (GetMapEnter4(D3DXVECTOR2(g_Enemy4[i].pos.x + direction.x * FIND_SPD, g_Enemy4[i].pos.y))
+		if (GetMapEnter(D3DXVECTOR2(g_Enemy4[i].pos.x + direction.x * FIND_SPD, g_Enemy4[i].pos.y))
 			== 1)
 		{
 			g_Enemy4[i].pos.x -= direction.x * FIND_SPD;
@@ -391,7 +437,7 @@ void WatchEnemy4(int i)
 			if (!g_Enemy4[i].movecntX)
 			{
 				// 一定時間動けない（障害物に引っかかる）
-				if (g_Enemy4[i].notmove.x > CHIP_SIZE)
+				if (g_Enemy4[i].notmove.x > NONE_MOVE)
 				{
 					g_Enemy4[i].movecntX = true;
 					g_Enemy4[i].notmove.x = 0.0f;
@@ -400,7 +446,7 @@ void WatchEnemy4(int i)
 		}
 
 		g_Enemy4[i].pos.y += direction.y * FIND_SPD;
-		if (GetMapEnter4(D3DXVECTOR2(g_Enemy4[i].pos.x, g_Enemy4[i].pos.y + direction.y * FIND_SPD))
+		if (GetMapEnter(D3DXVECTOR2(g_Enemy4[i].pos.x, g_Enemy4[i].pos.y + direction.y * FIND_SPD))
 			== 1)
 		{
 			g_Enemy4[i].pos.y -= direction.y * FIND_SPD;
@@ -409,7 +455,7 @@ void WatchEnemy4(int i)
 			if (!g_Enemy4[i].movecntY)
 			{
 				// 一定時間動けない（障害物に引っかかる）
-				if (g_Enemy4[i].notmove.y > CHIP_SIZE)
+				if (g_Enemy4[i].notmove.y > NONE_MOVE)
 				{
 					g_Enemy4[i].movecntY = true;
 					g_Enemy4[i].notmove.y = 0.0f;
@@ -426,17 +472,11 @@ void WatchEnemy4(int i)
 			// 見失った時の処理（SE）
 			PlaySound(g_watch_lost_SE4, 0);
 
-			char work = rand() % ROOT_MAX;
+			char work = rand() % ROOT_MAX4_1;
 
 			g_Enemy4[i].routenom = work;
-			g_Enemy4[i].pos.x = g_Route4X_1[work] * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = g_Route4Y_1[work] * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.x = g_Route4X_2[work] * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = g_Route4Y_2[work] * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.x = g_Route4X_3[work] * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = g_Route4Y_3[work] * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.x = g_Route4X_4[work] * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = g_Route4Y_4[work] * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.x = SetRouteX4_1(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = SetRouteY4_1(work) * CHIP_SIZE + (CHIP_SIZE / 2);
 
 		}
 		if (g_Enemy4[i].movecntY)
@@ -446,18 +486,100 @@ void WatchEnemy4(int i)
 			// 見失った時の処理（SE）
 			PlaySound(g_watch_lost_SE4, 0);
 
-			char work = rand() % ROOT_MAX;
+			char work = rand() % ROOT_MAX4_1;
 
 			g_Enemy4[i].routenom = work;
-			g_Enemy4[i].pos.x = SetRoute4X_1(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = SetRoute4Y_1(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.x = SetRoute4X_2(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = SetRoute4Y_2(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.x = SetRoute4X_3(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = SetRoute4Y_3(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.x = SetRoute4X_4(work) * CHIP_SIZE + (CHIP_SIZE / 2);
-			g_Enemy4[i].pos.y = SetRoute4Y_4(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.x = SetRouteX4_1(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = SetRouteY4_1(work) * CHIP_SIZE + (CHIP_SIZE / 2);
 
+
+		}
+
+		if (g_Enemy4[i].movecntX)
+		{
+
+			g_Enemy4[i].movecntX = false;
+
+			// 見失った時の処理（SE）
+			PlaySound(g_watch_lost_SE4, 0);
+
+			char work = rand() % ROOT_MAX4_2;
+
+			g_Enemy4[i].routenom = work;
+			g_Enemy4[i].pos.x = SetRouteX4_2(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = SetRouteY4_2(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+		}
+
+		if (g_Enemy4[i].movecntY)
+		{
+			g_Enemy4[i].movecntY = false;
+
+			// 見失った時の処理（SE）
+			PlaySound(g_watch_lost_SE4, 0);
+
+			char work = rand() % ROOT_MAX4_1;
+
+			g_Enemy4[i].routenom = work;
+			g_Enemy4[i].pos.x = SetRouteX4_2(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = SetRouteY4_2(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+		}
+
+		if (g_Enemy4[i].movecntX)
+		{
+
+			g_Enemy4[i].movecntX = false;
+
+			// 見失った時の処理（SE）
+			PlaySound(g_watch_lost_SE4, 0);
+
+			char work = rand() % ROOT_MAX4_3;
+
+			g_Enemy4[i].routenom = work;
+			g_Enemy4[i].pos.x = SetRouteX4_3(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = SetRouteY4_3(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+		}
+
+		if (g_Enemy4[i].movecntY)
+		{
+			g_Enemy4[i].movecntY = false;
+
+			// 見失った時の処理（SE）
+			PlaySound(g_watch_lost_SE4, 0);
+
+			char work = rand() % ROOT_MAX4_3;
+
+			g_Enemy4[i].routenom = work;
+			g_Enemy4[i].pos.x = SetRouteX4_3(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = SetRouteY4_3(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+		}
+
+		if (g_Enemy4[i].movecntX)
+		{
+
+			g_Enemy4[i].movecntX = false;
+
+			// 見失った時の処理（SE）
+			PlaySound(g_watch_lost_SE4, 0);
+
+			char work = rand() % ROOT_MAX4_4;
+
+			g_Enemy4[i].routenom = work;
+			g_Enemy4[i].pos.x = SetRouteX4_4(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = SetRouteY4_4(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+		}
+
+		if (g_Enemy4[i].movecntY)
+		{
+			g_Enemy4[i].movecntY = false;
+
+			// 見失った時の処理（SE）
+			PlaySound(g_watch_lost_SE4, 0);
+
+			char work = rand() % ROOT_MAX4_4;
+
+			g_Enemy4[i].routenom = work;
+			g_Enemy4[i].pos.x = SetRouteX4_4(work) * CHIP_SIZE + (CHIP_SIZE / 2);
+			g_Enemy4[i].pos.y = SetRouteY4_4(work) * CHIP_SIZE + (CHIP_SIZE / 2);
 		}
 
 	}
@@ -473,12 +595,11 @@ void NoneWatchEnemy4(int i)
 
 		char work = g_Enemy4[i].routenom;
 
-		//4_1
-		if (g_Enemy4[i].pos.x < g_Route4X_1[work] * CHIP_SIZE + CHIP_SIZE &&
-			g_Enemy4[i].pos.x > g_Route4X_1[work] * CHIP_SIZE)
+		if (g_Enemy4[i].pos.x < g_RouteX4_1[work] * CHIP_SIZE + CHIP_SIZE &&
+			g_Enemy4[i].pos.x > g_RouteX4_1[work] * CHIP_SIZE)
 		{
-			if (g_Enemy4[i].pos.y < g_Route4Y_1[work] * CHIP_SIZE + CHIP_SIZE &&
-				g_Enemy4[i].pos.y > g_Route4Y_1[work] * CHIP_SIZE)
+			if (g_Enemy4[i].pos.y < g_RouteY4_1[work] * CHIP_SIZE + CHIP_SIZE &&
+				g_Enemy4[i].pos.y > g_RouteY4_1[work] * CHIP_SIZE)
 			{
 				if (i % 2 == 0)
 				{
@@ -502,14 +623,16 @@ void NoneWatchEnemy4(int i)
 						g_Enemy4[i].routenom = ROOT_MAX4_1;
 					}
 				}
+
+
 			}
 		}
-		//4_2
-		if (g_Enemy4[i].pos.x < g_Route4X_2[work] * CHIP_SIZE + CHIP_SIZE &&
-			g_Enemy4[i].pos.x > g_Route4X_2[work] * CHIP_SIZE)
+
+		if (g_Enemy4[i].pos.x < g_RouteX4_2[work] * CHIP_SIZE + CHIP_SIZE &&
+			g_Enemy4[i].pos.x > g_RouteX4_2[work] * CHIP_SIZE)
 		{
-			if (g_Enemy4[i].pos.y < g_Route4Y_2[work] * CHIP_SIZE + CHIP_SIZE &&
-				g_Enemy4[i].pos.y > g_Route4Y_2[work] * CHIP_SIZE)
+			if (g_Enemy4[i].pos.y < g_RouteY4_2[work] * CHIP_SIZE + CHIP_SIZE &&
+				g_Enemy4[i].pos.y > g_RouteY4_2[work] * CHIP_SIZE)
 			{
 				if (i % 2 == 0)
 				{
@@ -533,14 +656,16 @@ void NoneWatchEnemy4(int i)
 						g_Enemy4[i].routenom = ROOT_MAX4_2;
 					}
 				}
+
+
 			}
 		}
-		//4_3
-		if (g_Enemy4[i].pos.x < g_Route4X_3[work] * CHIP_SIZE + CHIP_SIZE &&
-			g_Enemy4[i].pos.x > g_Route4X_3[work] * CHIP_SIZE)
+
+		if (g_Enemy4[i].pos.x < g_RouteX4_3[work] * CHIP_SIZE + CHIP_SIZE &&
+			g_Enemy4[i].pos.x > g_RouteX4_3[work] * CHIP_SIZE)
 		{
-			if (g_Enemy4[i].pos.y < g_Route4Y_3[work] * CHIP_SIZE + CHIP_SIZE &&
-				g_Enemy4[i].pos.y > g_Route4Y_3[work] * CHIP_SIZE)
+			if (g_Enemy4[i].pos.y < g_RouteY4_3[work] * CHIP_SIZE + CHIP_SIZE &&
+				g_Enemy4[i].pos.y > g_RouteY4_3[work] * CHIP_SIZE)
 			{
 				if (i % 2 == 0)
 				{
@@ -564,14 +689,17 @@ void NoneWatchEnemy4(int i)
 						g_Enemy4[i].routenom = ROOT_MAX4_3;
 					}
 				}
+
+
 			}
 		}
-		//4_4
-		if (g_Enemy4[i].pos.x < g_Route4X_4[work] * CHIP_SIZE + CHIP_SIZE &&
-			g_Enemy4[i].pos.x > g_Route4X_4[work] * CHIP_SIZE)
+
+
+		if (g_Enemy4[i].pos.x < g_RouteX4_4[work] * CHIP_SIZE + CHIP_SIZE &&
+			g_Enemy4[i].pos.x > g_RouteX4_4[work] * CHIP_SIZE)
 		{
-			if (g_Enemy4[i].pos.y < g_Route4Y_4[work] * CHIP_SIZE + CHIP_SIZE &&
-				g_Enemy4[i].pos.y > g_Route4Y_4[work] * CHIP_SIZE)
+			if (g_Enemy4[i].pos.y < g_RouteY4_4[work] * CHIP_SIZE + CHIP_SIZE &&
+				g_Enemy4[i].pos.y > g_RouteY4_4[work] * CHIP_SIZE)
 			{
 				if (i % 2 == 0)
 				{
@@ -595,22 +723,23 @@ void NoneWatchEnemy4(int i)
 						g_Enemy4[i].routenom = ROOT_MAX4_4;
 					}
 				}
+
+
 			}
 		}
 
 
 		//目標地点
-		D3DXVECTOR2 destination = D3DXVECTOR2(g_Route4X_1[work] * CHIP_SIZE + (CHIP_SIZE / 2),
-			g_Route4Y_1[work] * CHIP_SIZE + (CHIP_SIZE / 2));
+		D3DXVECTOR2 destination = D3DXVECTOR2(g_RouteX4_1[work] * CHIP_SIZE + (CHIP_SIZE / 2),
+			g_RouteY4_1[work] * CHIP_SIZE + (CHIP_SIZE / 2));
+		D3DXVECTOR2 destination = D3DXVECTOR2(g_RouteX4_2[work] * CHIP_SIZE + (CHIP_SIZE / 2),
+			g_RouteY4_2[work] * CHIP_SIZE + (CHIP_SIZE / 2));
+		D3DXVECTOR2 destination = D3DXVECTOR2(g_RouteX4_3[work] * CHIP_SIZE + (CHIP_SIZE / 2),
+			g_RouteY4_3[work] * CHIP_SIZE + (CHIP_SIZE / 2));
+		D3DXVECTOR2 destination = D3DXVECTOR2(g_RouteX4_4[work] * CHIP_SIZE + (CHIP_SIZE / 2),
+			g_RouteY4_4[work] * CHIP_SIZE + (CHIP_SIZE / 2));
 
-		D3DXVECTOR2 destination = D3DXVECTOR2(g_Route4X_2[work] * CHIP_SIZE + (CHIP_SIZE / 2),
-			g_Route4Y_2[work] * CHIP_SIZE + (CHIP_SIZE / 2));
-		
-		D3DXVECTOR2 destination = D3DXVECTOR2(g_Route4X_3[work] * CHIP_SIZE + (CHIP_SIZE / 2),
-			g_Route4Y_3[work] * CHIP_SIZE + (CHIP_SIZE / 2));
-		
-		D3DXVECTOR2 destination = D3DXVECTOR2(g_Route4X_4[work] * CHIP_SIZE + (CHIP_SIZE / 2),
-			g_Route4Y_4[work] * CHIP_SIZE + (CHIP_SIZE / 2));
+
 
 		//成分
 		D3DXVECTOR2 components;
@@ -677,7 +806,7 @@ void NoneWatchEnemy4(int i)
 	}
 }
 
-// 範囲内にプレイヤーがら入り込んだら
+// 範囲内にプレイヤーが入り込んだら
 bool SerchPlayer4(D3DXVECTOR2 Playerpos, D3DXVECTOR2 Enemypos)
 {
 	D3DXVECTOR2 maxRange, minRange;
@@ -709,5 +838,5 @@ bool SerchPlayer4(D3DXVECTOR2 Playerpos, D3DXVECTOR2 Enemypos)
 //=============================================================================
 ENEMY* GetEnemy4(void)
 {
-	return g_Enemy4;
+	return &g_Enemy4[0];
 }

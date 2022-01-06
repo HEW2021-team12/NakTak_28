@@ -15,7 +15,7 @@
 #define ENEMY_MAX		(3)			// エネミーのMax人数 ステージ１
 #define ENEMY_MAX2		(5)			// エネミーのMax人数 ステージ２
 #define ENEMY_MAX3		(5)			// エネミーのMax人数 ステージ３
-#define ENEMY_MAX4		(4)			// エネミーのMax人数 ステージ４
+#define ENEMY_MAX4		(5)			// エネミーのMax人数 ステージ４
 #define ENEMY_MAX5		(5)			// エネミーのMax人数 ステージ５
 
 // エネミー構造体
@@ -60,12 +60,6 @@ void UpdateEnemy(void);
 void DrawEnemy(void);
 ENEMY *GetEnemy(void);
 
-// ステージ２
-HRESULT InitEnemy2(void);
-void UninitEnemy2(void);
-void UpdateEnemy2(void);
-void DrawEnemy2(void);
-ENEMY* GetEnemy2(void);
 
 // ステージ４
 HRESULT InitEnemy4(void);
@@ -73,10 +67,3 @@ void UninitEnemy4(void);
 void UpdateEnemy4(void);
 void DrawEnemy4(void);
 ENEMY* GetEnemy4(void);
-
-// ステージ５
-HRESULT InitEnemy5(void);
-void UninitEnemy5(void);
-void UpdateEnemy5(void);
-void DrawEnemy5(void);
-ENEMY* GetEnemy5(void);

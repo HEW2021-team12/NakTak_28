@@ -65,12 +65,7 @@ HRESULT InitPlayer(void)
 		g_Player.pos.x = (CHIP_SIZE / 2) + CHIP_SIZE * PLAYER_POS_X;
 		g_Player.pos.y = (CHIP_SIZE / 2) + CHIP_SIZE * PLAYER_POS_Y;
 	}
-	// ステージ２
-	if (GetScene() == SCENE_GAME2)
-	{
-		g_Player.pos.x = (CHIP_SIZE / 2) + CHIP_SIZE * PLAYER_POS_X_2;
-		g_Player.pos.y = (CHIP_SIZE / 2) + CHIP_SIZE * PLAYER_POS_Y_2;
-	}
+
 
 	// ステージ４
 	if (GetScene() == SCENE_GAME4)
@@ -79,12 +74,6 @@ HRESULT InitPlayer(void)
 		g_Player.pos.y = (CHIP_SIZE / 2) + CHIP_SIZE * PLAYER_POS_Y_4;
 	}
 
-	// ステージ５
-	if (GetScene() == SCENE_GAME5)
-	{
-		g_Player.pos.x = (CHIP_SIZE / 2) + CHIP_SIZE * PLAYER_POS_X_4;
-		g_Player.pos.y = (CHIP_SIZE / 2) + CHIP_SIZE * PLAYER_POS_Y_4;
-	}
 
 	g_Player.size.x = PLAYER_SIZE;
 	g_Player.size.y = PLAYER_SIZE;
@@ -209,22 +198,6 @@ void ControlPlayer(void)
 		}
 	}
 
-	// マップ２の当たり判定
-	if (GetScene() == SCENE_GAME2)
-	{
-		// X軸の当たり判定
-		if (GetMapEnter2(D3DXVECTOR2(g_Player.pos.x + g_Player.vel.x, g_Player.pos.y))
-			== 1)
-		{
-			g_Player.pos.x -= g_Player.vel.x;
-		}
-		// Y軸の当たり判定
-		if (GetMapEnter2(D3DXVECTOR2(g_Player.pos.x, g_Player.pos.y + g_Player.vel.y))
-			== 1)
-		{
-			g_Player.pos.y -= g_Player.vel.y;
-		}
-	}
 
 	// マップ４の当たり判定
 	if (GetScene() == SCENE_GAME4)
@@ -243,22 +216,6 @@ void ControlPlayer(void)
 		}
 	}
 
-	// マップ５の当たり判定
-	if (GetScene() == SCENE_GAME5)
-	{
-		// X軸の当たり判定
-		if (GetMapEnter5(D3DXVECTOR2(g_Player.pos.x + g_Player.vel.x, g_Player.pos.y))
-			== 1)
-		{
-			g_Player.pos.x -= g_Player.vel.x;
-		}
-		// Y軸の当たり判定
-		if (GetMapEnter5(D3DXVECTOR2(g_Player.pos.x, g_Player.pos.y + g_Player.vel.y))
-			== 1)
-		{
-			g_Player.pos.y -= g_Player.vel.y;
-		}
-	}
 
 
 	//左(移動)

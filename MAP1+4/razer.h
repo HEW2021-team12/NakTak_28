@@ -57,16 +57,10 @@ void UpdateRazer(void);
 void DrawRazer(void);
 RAZER* GetRazer(void);
 
-//// ステージ４
-//HRESULT InitRazer(void);
-//void UninitRazer(void);
-//void UpdateRazer(void);
-//void DrawRazer(void);
-//RAZER* GetRazer(void);
-//
-//// ステージ５
-//HRESULT InitRazer(void);
-//void UninitRazer(void);
-//void UpdateRazer(void);
-//void DrawRazer(void);
-//RAZER* GetRazer(void);
+// ステージ４
+//HRESULT InitRazer4(void);
+//void UninitRazer4(void);
+//void UpdateRazer4(void);
+//void DrawRazer4(void);
+//RAZER* GetRazer4(void);
+
